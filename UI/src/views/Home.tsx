@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+//Setvice
+import RaceService from "../services/RaceService";
+
+//Components
 import {
   Typography,
   CircularProgress,
@@ -13,8 +18,11 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TextField,
 } from "@mui/material";
-import RaceService from "../services/RaceService";
+
+//Style
+import "./styles/index.css";
 
 interface Location {
   url: string;
@@ -25,6 +33,8 @@ function Home() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [raceData, setRaceData] = useState<any[]>([]);
+  const [input, setInput] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,6 +50,10 @@ function Home() {
       });
   }, []);
 
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // setInput((event.target as HTMLInputElement).value);
+  };
+
   const handleSelectChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const url = event.target.value as string;
     setSelectedLocation(url);
@@ -53,23 +67,16 @@ function Home() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginTop: "20px",
-      }}
-    >
+    <div className="home-container">
       <Typography variant="h4" gutterBottom>
         F1 Race Search
       </Typography>
       {loading ? (
         <CircularProgress />
       ) : (
-        <FormControl>
-          <InputLabel id="location-select-label">Location</InputLabel>
+        <div className="filter-row">
           <Select
+            className="custom-select"
             labelId="location-select-label"
             value={selectedLocation}
             onChange={handleSelectChange as any}
@@ -80,9 +87,16 @@ function Home() {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+          <TextField
+            className="custom-text-field"
+            label="Search"
+            variant="outlined"
+            value={input}
+            onChange={handleInputChange}
+          />
+        </div>
       )}
-      {raceData && raceData.length > 0 && (
+      {raceData && raceData.length > 0 ? (
         <TableContainer component={Paper} style={{ marginTop: "20px" }}>
           <Table>
             <TableHead>
@@ -103,6 +117,8 @@ function Home() {
             </TableBody>
           </Table>
         </TableContainer>
+      ) : (
+        <p className="noData-title">No data available</p>
       )}
     </div>
   );

@@ -85,9 +85,10 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
-app.get("/race/:url", async (req, res) => {
+app.get("/race", async (req, res) => {
   try {
-    const raceURL = decodeURIComponent(req.params.url);
+    console.log(req.query);
+    const raceURL = decodeURIComponent(req.query.url);
     const raceData = await fetchRaceData(raceURL);
     res.send(raceData);
   } catch (error) {

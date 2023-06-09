@@ -1,0 +1,26 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.custom-select {
+  width: 200px !important;
+}
+
+.custom-text-field {
+  width: 200px !important;
+  margin-left: 10px !important;
+}
+
+.filter-row {
+  width: 100%;
+  justify-content: end;
+  display: flex;
+  flex-direction: row;
+}
+
+.noData-title {
+  text-align: center;
+}
