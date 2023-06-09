@@ -5,10 +5,6 @@ import FullLayout from "../layouts/fulllayout";
 //Layout
 import Home from "../views/Home";
 
-// import Page1 from "@/views/Page1";
-// import Page2 from "@/views/Page2";
-// import PageNotFound from "@/views/PageNotFound";
-
 const AppRouter: React.FC = () => {
   return (
     <Router>

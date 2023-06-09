@@ -20,5 +20,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"]
+  "lib": ["src", "dom", "dom.iterable", "esnext"]
 }
