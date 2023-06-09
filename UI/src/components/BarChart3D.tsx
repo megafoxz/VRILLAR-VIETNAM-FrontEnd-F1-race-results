@@ -34,6 +34,9 @@ interface ChartProps {
 }
 
 export default function BarChart3D({ data }: ChartProps) {
+  if (data.length === 0) {
+    return null;
+  }
   return (
     <Canvas style={{ width: "100%", height: "400px" }}>
       <ambientLight />

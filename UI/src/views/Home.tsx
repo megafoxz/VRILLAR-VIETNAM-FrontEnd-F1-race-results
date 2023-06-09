@@ -40,8 +40,10 @@ interface RaceData {
 function Home() {
   const [locations, setLocations] = useState<Location[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
+  const [displayedRaceData, setDisplayedRaceData] = useState<any[]>([]);
   const [raceData, setRaceData] = useState<any[]>([]);
   const [input, setInput] = useState("");
+
   const [mockData, setMockData] = useState([
     { racer: "Racer 1", wins: 5 },
     { racer: "Racer 2", wins: 7 },
@@ -57,8 +59,21 @@ function Home() {
     getLocationOptions();
   }, []);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setInput((event.target as HTMLInputElement).value);
+  const handleInputChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const value = event.target.value as string;
+    setInput(value);
+    if (value !== "") {
+      const filteredData = raceData.filter(
+        (data) =>
+          data.Car.toLowerCase().includes(value.toLowerCase()) ||
+          (data.Driver &&
+            data.Driver.toLowerCase().includes(value.toLowerCase())) ||
+          data.Winner.toLowerCase().includes(value.toLowerCase())
+      );
+      setDisplayedRaceData(filteredData);
+    } else {
+      setDisplayedRaceData(raceData);
+    }
   };
 
   const transformData = (data: any[]) => {
@@ -77,7 +92,7 @@ function Home() {
     RaceService.fetchRaceData(locations[selectedIndex].url)
       .then((data: RaceData[]) => {
         setRaceData(data);
-
+        setDisplayedRaceData(data);
         setTimeout(() => {
           setMockData(transformData(data));
         }, 500);
@@ -97,6 +112,7 @@ function Home() {
           RaceService.fetchRaceData(data[0].url)
             .then((raceData: RaceData[]) => {
               setRaceData(raceData);
+              setDisplayedRaceData(raceData);
               setMockData(transformData(raceData));
             })
             .catch((error: any) => {
@@ -112,9 +128,11 @@ function Home() {
 
   return (
     <div className="home-container">
-      <Box className="visualization-section">
-        <BarChart3D data={mockData} />
-      </Box>
+      {mockData.length > 0 && (
+        <Box className="visualization-section">
+          <BarChart3D data={mockData} />
+        </Box>
+      )}
       {loading ? (
         <CircularProgress />
       ) : (
@@ -140,7 +158,7 @@ function Home() {
           />
         </div>
       )}
-      {raceData && raceData.length > 0 ? (
+      {displayedRaceData && displayedRaceData.length > 0 ? (
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
