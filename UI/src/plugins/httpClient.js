@@ -1,6 +1,6 @@
 import axios from "axios";
 import AppConstant from "./constant";
-import Helper, { convertPriceString } from "./helper";
+import Helper from "./helper";
 
 export default class HttpClient {
   constructor(baseUrl) {
