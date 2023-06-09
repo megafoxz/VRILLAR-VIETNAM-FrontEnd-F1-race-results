@@ -1,19 +1,16 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode } from "react";
 import NavBar from "../components/NavigationBar";
-import SearchContext from "../contexts/SearchContext";
 
 interface FullLayoutProps {
   children: ReactNode;
 }
 
 const FullLayout: React.FC<FullLayoutProps> = ({ children }) => {
-  const [search, setSearch] = useState("");
-
   return (
-    <SearchContext.Provider value={{ search, setSearch }}>
+    <div>
       <NavBar />
       {children}
-    </SearchContext.Provider>
+    </div>
   );
 };
 
