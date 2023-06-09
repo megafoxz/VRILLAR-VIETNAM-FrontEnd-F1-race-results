@@ -5,7 +5,7 @@ function NavBar() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          VRILLAR VIETNAM
+          Assignment
         </Typography>
       </Toolbar>
     </AppBar>
