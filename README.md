@@ -32,7 +32,17 @@ The API is developed in Node.js and is responsible for scraping data from the [F
 1. `/race`: Returns data about individual races.
 2. `/locations`: Returns data about the different race locations.
 
+The data for this application is crawled from the Formula 1 official website using Node.js, along with the axios and cheerio libraries. These libraries help to fetch HTML from the website and parse it to extract relevant data.
+
 ### UI
+
+The UI is developed using React and TypeScript and utilizes various libraries and frameworks for its operation and aesthetics. These include:
+
+- `React`
+- `MUI`: React component
+- `axios`: This is used in the 'services' directory to call the API endpoints and fetch data.
+- `@react-three/fiber`: Used to create 3D charts in the application.
+- `@react-three/drei`: Provides helpers for @react-three/fiber, such as creating text below chart bars.
 
 The UI is developed using React and TypeScript. It organizes its source code in the following directories:
 
